@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>流量狂飙，一步之“摇”</title>
+    <script type="text/javascript">
+        (function (global) {
+            function remChange() {
+                document.documentElement.style.fontSize = 100 * document.documentElement.clientWidth / 750 + 'px';
+            }
+            remChange();
+            global.addEventListener('resize', remChange, false);
+        })(window);
+    </script>
+    <link rel="stylesheet" href="css/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- <div class="mask"></div> -->
+    <div class="view-wrapper">
+        <div data-text="再来一次" class="play-again stroke">再来一次</div>
+        <div class="game-box">
+            <div data-text="今日还剩N次抽奖机会" class="game-box-title stroke">
+                今日还剩<span>N</span>次抽奖机会
+            </div>
+            <div class="game-box-container">
+                <div class="game-box-bg"></div>
+                <div class="num-box clearfix">
+                    <div class="num" style="margin-left: 0.2rem"></div>
+                    <div class="num" style="margin-left: 0.22rem"></div>
+                    <div class="num" style="margin-left: 0.22rem"></div>
+                </div>
+                <div class="game-box-mask"></div>
+            </div>
+            <div class="game-btn-group">
+                <div class="game-btn game-rule-btn">
+                    <i></i>
+                    <span data-text="规则">规则</span>
+                </div>
+                <div class="game-btn game-prize-btn">
+                    <i></i>
+                    <span data-text="奖品">奖品</span>
+                </div>
+            </div>
+        </div>
+        <div class="game-begin"></div>
+        <div class="banner"></div>
+        <div class="mask"></div>
+
+        <!-- 中奖弹窗 -->
+        <div class="modal modal-getPrize" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.61rem; background-image: url('images/modal_bg_01.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0.2rem 0.1rem;">
+                            <p class="font-48">棒棒哒1</p>
+                            <p class="font-48">139xxxxxxxx</p>
+                            <p class="font-48">获得30M流量~</p>
+                            <p class="font-24">温馨提示：奖品将于活动结束后30个工作日内赠送，每位客户只可获赠一次</p>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 未中奖弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.91rem; background-image: url('images/modal_bg_02.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0.15rem 0.1rem 0;">
+                            <p class="font-48">就差那么一点</p>
+                            <p class="font-48">继续加油吧！</p>
+                            <p class="font-24">温馨提示：每天首次邀请好友参与，可额外增加一次抽奖机会哦！</p>
+                            <div class="modal-playagain-btn btn_03" style="margin-top: 0.1rem;">再来一次</div>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+        
+        <!-- 这里空荡荡的弹窗 -->
+        <div class="modal modal-kong" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.91rem; background-image: url('images/modal_bg_02.png');">
+                    <div class="modal-body">
+                        <div style="height: 2rem; display: flex;flex-direction: column;justify-content: center;">
+                            <p class="font-48">这里空荡荡的~</p>
+                            <p class="font-48">相信你很快能中奖的！</p>
+                        </div>
+                        <div class="modal-playagain-btn btn_04">赶紧去抽一把</div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 机会用完 明日再来弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.91rem; background-image: url('images/modal_bg_02.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0.15rem 0.1rem 0;">
+                            <p class="font-48">抽奖机会用完啦~</p>
+                            <p class="font-48">明天再来吧</p>
+                            <p class="font-24">温馨提示：每天首次邀请好友参与，可额外增加一次抽奖机会哦！</p>
+                            <div class="modal-playagain-btn btn_05" style="margin-top: 0.1rem;">邀请好友玩一把</div>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 机会用完弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.91rem; background-image: url('images/modal_bg_01.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0 0.1rem;">
+                            <p class="font-48" style="padding: 0.35rem 0;">抽奖机会用完啦~</p>
+                            <p class="font-24">温馨提示：每天首次邀请好友参与，可额外增加一次抽奖机会哦！</p>
+                            <div class="modal-playagain-btn btn_05" style="margin-top: 0.1rem;">邀请好友玩一把</div>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动结束弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.61rem; background-image: url('images/modal_bg_01.png');">
+                    <div class="modal-body">
+                        <div style="height: 100%;display:flex;justify-content: center;flex-direction: column;">
+                            <p class="font-48">下次要早点来哦</p>
+                            <p class="font-48">本次活动已经结束啦</p>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动规则弹窗 -->
+        <div class="modal modal-rule" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 10.81rem; background-image: url('images/modal_bg_03.png');">
+                    <div class="modal-body">
+                        <div style="height: 100%;">
+                            <div class="rule-title"></div>
+                            <div style="height: 8rem; overflow-y: scroll;font-size: 0.3rem; color: #8d5c08;text-align: left;padding: 0 0.15rem;font-weight: 700;">
+                                1、活动期间，用户需要持续订阅并绑定“中国移动10086”手机QQ公众号，若取消订阅与绑定则无法发放奖品。<br />
+                                2、赠送的流量为国内流量（河北、贵州为省内流量），2/3/4G通用，当月有效，流量不结转。 <br />
+                                3、中奖查询：奖品可点击游戏首页“奖品”查询当前中奖情况。或在活动结束10个工作日后，点击手机QQ菜单“个人主页”底部的“中奖查询专区”广告图查询中奖结果。<br />
+                                4、流量奖品将于活动结束后30个工作日内赠送至用户认证登录的手机号码中，届时会有短信提醒。<br />
+                                5、同一用户活动期间只可中奖一次，同一账号重复登记或者更换多个账号绑定登记只计算第一次登记号码。<br />
+                                6、号码欠费、未进行实名制认证、处于非正常状态的用户，流量可能无法成功到帐。<br />
+                                7、携号转网、集团代付/对公托收（如政企动力100行业卡）用户暂时无法参与，流量无法到账。<br />
+                                8、一经发现违规等恶意操作将取消获奖资格。<br />
+                                9、本活动的中奖概率约为6%-20%（这个只给客户看，非后台概率），根据历史活动经验测算，具体以实际参与为准。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+        
+        <!-- 邀请好友额外获得一次抽奖机会弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 4.91rem; background-image: url('images/modal_bg_01.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0 0.1rem;">
+                            <div style="display: flex;justify-content: center;height: 2.2rem;flex-direction: column;">
+                                <p class="font-48">邀请好友成功~</p>
+                                <p  class="font-48">获得一次额外抽奖机会</p>
+                            </div>
+                            <p class="font-24">温馨提示：每天首次邀请好友参与，可额外增加一次抽奖机会哦！</p>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- 还没关注10086弹窗 -->
+        <div class="modal" style="display: none;">
+            <div class="modal-flex">
+                <div class="modal-content" style="height: 7rem; background-image: url('images/modal_bg_04.png');">
+                    <div class="modal-body">
+                        <div style="padding: 0 0.1rem;">
+                            <p class="font-42" style="margin-top: 0.7rem;">您还没有订阅或者绑定</p>
+                            <p  class="font-42">"中国移动10086"公众号</p>
+                            <p class="font-24">温馨提示：登录手机QQ，点击右上角【+】，选择【加好友/群】，搜索【中国移动10086】即可订阅</p>
+                            <div class="modal-playagain-btn btn_02" style="margin-bottom: 0.15rem;margin-top: 0.35rem;">戳我前往订阅</div>
+                            <div class="modal-playagain-btn btn_02">戳我绑定手机号码</div>
+                        </div>
+                    </div>
+                    <div class="modal-close"></div>   
+                </div>
+            </div>
+        </div>
+        
+        <!-- 关注提示 -->
+        <div class="share-tip">
+            <p data-text="每天首次邀请好友参与">每天首次邀请好友参与</p>
+            <p data-text="可额外增加一次抽奖机会">可额外增加一次抽奖机会</p>
+        </div>
+    </div>
+    <script src="js/jquery-1.10.1.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
+
+
